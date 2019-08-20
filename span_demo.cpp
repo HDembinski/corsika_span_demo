@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <variant>
 
-// must contain only floats and should be a trivial type for performance
+// must have size diviseble by size of float and should be a trivial for performance
 struct Particle {
   float& px() { return px_; }
   float& py() { return py_; }
@@ -26,7 +26,8 @@ public:
         Eigen::InnerStride<(sizeof(Particle) / sizeof(float))>
     >;
 
-    ParticleSpan(std::vector<Particle>& v) : begin_(v.data()), end_(v.data() + v.size()) {};
+    ParticleSpan(std::vector<Particle>& v)
+      : begin_(v.data()), end_(v.data() + v.size()) {};
 
     iterator begin() { return begin_; }
     iterator end() { return end_; }
@@ -117,7 +118,7 @@ static void variant_process_span(benchmark::State& state) {
     visit([&span](auto& proc) { proc(span); }, process);
 }
 
-BENCHMARK(process_one)->RangeMultiplier(10)->Range(10, 10000);
-BENCHMARK(process_span)->RangeMultiplier(10)->Range(10, 10000);
-BENCHMARK(variant_process_one)->RangeMultiplier(10)->Range(10, 10000);
-BENCHMARK(variant_process_span)->RangeMultiplier(10)->Range(10, 10000);
+BENCHMARK(process_one)->RangeMultiplier(10)->Range(1, 10000);
+BENCHMARK(process_span)->RangeMultiplier(10)->Range(1, 10000);
+BENCHMARK(variant_process_one)->RangeMultiplier(10)->Range(1, 10000);
+BENCHMARK(variant_process_span)->RangeMultiplier(10)->Range(1, 10000);
