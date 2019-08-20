@@ -1,0 +1,8 @@
+CMakeFiles
+_deps
+fetch_and_include
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+*.dat
+span_demo
