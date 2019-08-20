@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <variant>
 
-// must have size diviseble by size of float and should be a trivial for performance
+// must have size divisible by size of float and should be a trivial for performance
 struct Particle {
   float& px() { return px_; }
   float& py() { return py_; }
