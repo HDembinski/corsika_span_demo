@@ -26,20 +26,24 @@ for key in benchmarks:
     benchmarks[key] = a(xlist), a(ylist), a(elist)
 
 plt.figure()
-for key, (x, y, e) in benchmarks.items():        
-    plt.errorbar(x, y, e, fmt="o-", label=key)
+for key in sorted(benchmarks):
+    (x, y, e) = benchmarks[key]
+    fmt = "D-" if "variant" in key else "o--"
+    plt.errorbar(x, y, e, fmt=fmt, label=key)
 plt.loglog()
-plt.legend()
+plt.legend(fontsize="x-small")
 plt.xlabel(r"$N_\mathrm{particles}$")
 plt.ylabel("CPU time / ns")
 
 plt.figure()
-yn = benchmarks["variant_process_span"][1]
-for key, (x, y, e) in benchmarks.items():
-    plt.errorbar(x, y/yn, e/yn, fmt="o-", label=key)
-plt.semilogx()
-plt.ylim(0.8, 1.5)
-plt.legend()
+yn = benchmarks["variant_process_span_no_eigen"][1]
+for key in sorted(benchmarks):
+    (x, y, e) = benchmarks[key]
+    fmt = "D-" if "variant" in key else "o--"
+    plt.errorbar(x, y/yn, e/yn, fmt=fmt, label=key)
+plt.loglog()
+plt.ylim(0.1, 10)
+plt.legend(fontsize="x-small")
 plt.xlabel(r"$N_\mathrm{particles}$")
 plt.ylabel("CPU time ratio")
 

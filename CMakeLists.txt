@@ -22,7 +22,7 @@ option(BENCHMARK_ENABLE_TESTING "" OFF)
 set(CMAKE_BUILD_TYPE Release) # to build google-benchmark in release mode
 boost_fetch(google/benchmark)
 
-include_directories(extern/eigen)
+include_directories(extern/eigen extern/phys_units)
 
 macro(add_benchmark name)
   add_executable(${name} "${name}.cpp")
